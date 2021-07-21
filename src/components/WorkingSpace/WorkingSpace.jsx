@@ -1,5 +1,6 @@
 import React from "react";
 import Title from "../Title/Title";
+import Button from "../Button/Button";
 import styles from "./WorkingSpace.module.sass";
 
 const WorkingSpace = () => {
@@ -11,6 +12,7 @@ const WorkingSpace = () => {
       <div className={styles.workingSpace__buy}>
         <Title>Buy</Title>
       </div>
+      <Button>Exchange</Button>
     </section>
   );
 };
