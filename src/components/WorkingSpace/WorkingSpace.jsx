@@ -6,9 +6,11 @@ import Button from "../Button/Button";
 import Select from "../Select/Select";
 import Input from "../Input/Input";
 import styles from "./WorkingSpace.module.sass";
+import { NavLink } from "react-router-dom";
 
 const WorkingSpace = () => {
   const payMethods = useSelector((state) => state.currencyExchange.payMethods);
+  const valueEntryField = useSelector((state) => state.currencyExchange.valueEntryField);
 
   const sell = payMethods.invoice;
   const buy = payMethods.withdraw;
@@ -18,33 +20,19 @@ const WorkingSpace = () => {
       <div className={styles.workingSpace__wrapper}>
         <div className={styles.workingSpace__sell}>
           <Title>Sell</Title>
-          <Select
-            payMethods={sell}
-            category="invoice"
-            className={styles.workingSpace__select}
-          />
-          <Input
-            type="number"
-            name="invoice"
-            className={styles.workingSpace__input}
-          />
+          <Select payMethods={sell} category="invoice" className={styles.workingSpace__select} />
+          <Input type="number" name="invoice" className={styles.workingSpace__input} />
         </div>
         <div className={styles.workingSpace__buy}>
           <Title>Buy</Title>
-          <Select
-            payMethods={buy}
-            category="withdraw"
-            className={styles.workingSpace__select}
-          />
-          <Input
-            type="number"
-            name="withdraw"
-            className={styles.workingSpace__input}
-          />
+          <Select payMethods={buy} category="withdraw" className={styles.workingSpace__select} />
+          <Input type="number" name="withdraw" className={styles.workingSpace__input} />
         </div>
       </div>
       <div className={styles.workingSpace__button}>
-        <Button>Exchange</Button>
+        <NavLink to="/details">
+          <Button disabled={!valueEntryField ? true : false}>Exchange</Button>
+        </NavLink>
       </div>
     </section>
   );

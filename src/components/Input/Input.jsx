@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
-  calculateExchangeAmount,
   setEntryField,
+  setExchangeAmount,
   setOutputField,
-} from "../../store/currencyExchangeReducer";
+  setValueEntryField,
+} from "../../store/actionCreators/currencyExchangeAC";
+import { calculateExchangeAmountTC } from "../../store/thunkCreators/currencyExchangeTC";
+import Loader from "../Loader/Loader";
 import "./Input.sass";
 
 const Input = ({ className, type, name }) => {
   const dispatch = useDispatch();
 
   const amount = useSelector((state) => state.currencyExchange.amount);
-  const method = useSelector((state) => state.currencyExchange[name]);
   const entryField = useSelector((state) => state.currencyExchange.entryField);
-
-  const idInvoice = useSelector(
-    (state) => state.currencyExchange.invoice.idMethod
-  );
-  const idWithdraw = useSelector(
-    (state) => state.currencyExchange.withdraw.idMethod
-  );
+  const idInvoice = useSelector((state) => state.currencyExchange.invoice.idMethod);
+  const idWithdraw = useSelector((state) => state.currencyExchange.withdraw.idMethod);
+  const valueEntryField = useSelector((state) => state.currencyExchange.valueEntryField);
+  const isProgressLoading = useSelector((state) => state.currencyExchange.isProgressLoading);
 
   const [valueInput, setValueInput] = useState("");
 
   useEffect(() => {
-    console.log(method);
     if (valueInput) {
       dispatch(
-        calculateExchangeAmount({
+        calculateExchangeAmountTC({
           name,
           valueInput,
           ipm: idInvoice,
@@ -39,17 +36,20 @@ const Input = ({ className, type, name }) => {
   }, [valueInput]);
 
   const inputHandler = (e) => {
-    setValueInput(e.target.value);
+    const value = e.target.value;
+    setValueInput(value);
+    dispatch(setValueEntryField(value));
+    if (!value) {
+      dispatch(setExchangeAmount(""));
+    }
   };
 
   const focusHandler = (e) => {
     dispatch(setEntryField(e.target.name));
-    dispatch(
-      setOutputField(e.target.name === "invoice" ? "withdraw" : "invoice")
-    );
+    dispatch(setOutputField(e.target.name === "invoice" ? "withdraw" : "invoice"));
   };
 
-  const blurHandler = (e) => {
+  const blurHandler = () => {
     if (!valueInput) {
       dispatch(setEntryField(""));
       dispatch(setOutputField(""));
@@ -57,17 +57,18 @@ const Input = ({ className, type, name }) => {
   };
 
   return (
-    <>
+    <div className="input-container">
       <input
         type={type}
         name={name}
         className={`${className} input`}
-        value={entryField === name ? valueInput : amount}
+        value={entryField === name ? valueEntryField : amount}
         onChange={inputHandler}
         onFocus={focusHandler}
         onBlur={blurHandler}
       />
-    </>
+      {isProgressLoading && <Loader className="input__loader" />}
+    </div>
   );
 };
 
