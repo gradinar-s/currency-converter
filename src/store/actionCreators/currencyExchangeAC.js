@@ -10,7 +10,7 @@ import {
 } from "../types/currencyExchangeTypes";
 
 export const initializeApp = () => ({
-  // Загрузка приложения после окончания всех асинхронных операций
+  // Loading the application after all asynchronous operations have finished
   type: INITIALIZE_APP,
 });
 
@@ -20,30 +20,30 @@ export const setProgressLoading = (value) => ({
 });
 
 export const setPayMethods = (payMethods) => ({
-  // Записываем полученные методы оплаты в state
+  // Set received payment methods to state
   type: SET_PAY_METHODS,
   payload: { payMethods },
 });
 
-export const setUserEvent = (event, selectPayMethods, idMethod) => ({
+export const setUserEvent = (event, selectPayMethod, idMethod) => ({
   type: SET_USER_EVENT,
-  payload: { event, selectPayMethods, idMethod },
+  payload: { event, selectPayMethod, idMethod },
 });
 
 export const setValueEntryField = (value) => ({
-  // Установить значение поля ввода
+  // Set the value of an input field
   type: SET_VALUE_ENTRY_FIELD,
   payload: { value },
 });
 
 export const setEntryField = (entryField) => ({
-  // Установить поле ввода
+  // Set input field
   type: SET_ENTRY_FIELD,
   payload: { entryField },
 });
 
 export const setOutputField = (outputField) => ({
-  // Установить поле вывода результата
+  // Set the output field of the result
   type: SET_OUTPUT_FIELD,
   payload: { outputField },
 });

@@ -1,19 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import Title from "../Title/Title";
-
+import Button from "../Button/Button";
 import styles from "./Details.module.sass";
 import stylesWorkingSpace from "../WorkingSpace/WorkingSpace.module.sass";
-import Button from "../Button/Button";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const Details = () => {
-  const invoicePayMethod = useSelector((state) => state.currencyExchange.invoice.selectPayMethods);
-  const withdrawPayMethod = useSelector(
-    (state) => state.currencyExchange.withdraw.selectPayMethods
-  );
-  const valueEntryField = useSelector((state) => state.currencyExchange.valueEntryField);
   const amount = useSelector((state) => state.currencyExchange.amount);
+  const valueEntryField = useSelector((state) => state.currencyExchange.valueEntryField);
+  const invoicePayMethod = useSelector((state) => state.currencyExchange.invoice.selectPayMethod);
+  const withdrawPayMethod = useSelector((state) => state.currencyExchange.withdraw.selectPayMethod);
 
   return (
     <section className={`${stylesWorkingSpace.workingSpace} ${styles.details}`}>

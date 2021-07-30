@@ -47,9 +47,9 @@ const Select = ({ className, payMethods, category }) => {
       <button
         className={`${isSelectVisible ? "select__field select__field_active" : "select__field"}`}
         onClick={selectHandler}
-        onBlur={() => setTimeout(() => setSelectVisible(false), 100)}
+        onBlur={() => setSelectVisible(false)}
       >
-        {method.selectPayMethods}
+        {method.selectPayMethod}
       </button>
       <ul className={`${isSelectVisible ? "select__list select__list_visible" : "select__list"}`}>
         {payMethods.map((method) => {
@@ -57,7 +57,7 @@ const Select = ({ className, payMethods, category }) => {
             <li
               key={method.id}
               className="select__item"
-              onClick={(e) => setPayMethodToField(e, method.id)}
+              onMouseDown={(e) => setPayMethodToField(e, method.id)} // onMouseDown fires before onBlur event
             >
               {method.name}
             </li>

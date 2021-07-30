@@ -17,8 +17,8 @@ const initialState = {
   valueEntryField: "",
   outputField: "",
   amount: "",
-  invoice: { selectPayMethods: "", idMethod: "" },
-  withdraw: { selectPayMethods: "", idMethod: "" },
+  invoice: { selectPayMethod: "", idMethod: "" },
+  withdraw: { selectPayMethod: "", idMethod: "" },
 };
 
 export default function currencyExchangeReducer(state = initialState, action) {
@@ -45,7 +45,7 @@ export default function currencyExchangeReducer(state = initialState, action) {
       return {
         ...state,
         [action.payload.event]: {
-          selectPayMethods: action.payload.selectPayMethods,
+          selectPayMethod: action.payload.selectPayMethod,
           idMethod: action.payload.idMethod,
           value: action.payload.value,
         },

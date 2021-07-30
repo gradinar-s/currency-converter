@@ -1,12 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
+import { NavLink } from "react-router-dom";
 import Title from "../Title/Title";
 import Button from "../Button/Button";
 import Select from "../Select/Select";
 import Input from "../Input/Input";
 import styles from "./WorkingSpace.module.sass";
-import { NavLink } from "react-router-dom";
 
 const WorkingSpace = () => {
   const payMethods = useSelector((state) => state.currencyExchange.payMethods);

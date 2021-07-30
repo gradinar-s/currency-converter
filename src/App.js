@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Route } from "react-router-dom";
 import { initializeAppTC } from "./store/thunkCreators/currencyExchangeTC";
 import WorkingSpace from "./components/WorkingSpace/WorkingSpace";
 import Loader from "./components/Loader/Loader";
-import { Route } from "react-router-dom";
-import "./App.sass";
 import Details from "./components/Details/Details";
 import Success from "./components/Success/Success";
+import "./App.sass";
 
 function App() {
   const dispatch = useDispatch();
